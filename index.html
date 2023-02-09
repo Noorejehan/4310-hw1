@@ -155,7 +155,7 @@ const top5 = neighborhoodSpeciesCount
   .sort((a, b) => d3.descending(a.totalSpecies, b.totalSpecies))
   .slice(0, 5);
 
- 
+// Creating Scales
 const top_names = d3.map(top5, d => d.neighborhood)  
 
 const nameScale = d3.scaleBand().domain(top_names).range([0, chartWidth]).padding(0.05);
@@ -167,6 +167,9 @@ const speciesScale = d3.scaleLinear().domain([0, d3.max(top_species)]).range([ c
 const colorScale = d3.scaleOrdinal()
     .domain(['Potrero Hill', 'Mission','Bernal Heights', 'Noe Valley', 'Bayview'])
     .range(['#EA8677','#8BB0D0','#F2B870','#BDDD78', '#F4CFE4']) 
+
+
+    //Creating the axes and gridlines
 
 let leftAxis = d3.axisLeft(speciesScale);
 let leftGridlines = d3.axisLeft(speciesScale)
@@ -186,6 +189,8 @@ annotations.append("g")
         .attr("transform",`translate(${margin2.left},${chartHeight+margin2.top+10})`)
         .call(bottomAxis);
 
+
+//Creating the Barchart
 chartArea.selectAll('rect.bar').data(top5)
              .join('rect').attr('class','bar')
              .attr("fill", d => colorScale(d.neighborhood))
@@ -194,7 +199,7 @@ chartArea.selectAll('rect.bar').data(top5)
              .attr("height", d => speciesScale(0) - speciesScale(d.totalSpecies))
              .attr("width", nameScale.bandwidth());                      
   
-
+//Creating label
 chartArea.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
@@ -211,20 +216,14 @@ requestData();
 </script>
 
 
-
-
 <script>
     // PROFESSOR RZESZOTARSKI'S CODE FOR CREATING A LEGEND 
   
     // Flexible legend-drawing function - Jeff Rzeszotarski, 2022
     //   Released under MIT Free license
     //  Takes in an SVG element selector <legendSelector> and a d3 color scale <legendColorScale>
-    //
-    // Usage example: drawLegend("#legendID", grossIncomeColorScale)
+
     function drawLegend(legendSelector, legendColorScale) {
-      
-      // This code should adapt to a variety of different kinds of color scales
-      //  Credit Prof. Rz if you are basing a legend on this structure, and note PERFORMANCE CONSIDERATIONS
       
       // Shrink legend bar by 5 px inwards from sides of SVG
       const offsets = { width: 10,
@@ -245,8 +244,7 @@ requestData();
       const minMaxExtension = (legendMinMax[1] - legendMinMax[0]) * minMaxExtendPercent;
       const barHeight = legendHeight - offsets.top - offsets.bottom;     
       
-      // In this case the "data" are pixels, and we get numbers to use in colorScale
-      // Use this to make axis labels
+
       let barScale = d3.scaleLinear().domain([legendMinMax[0]-minMaxExtension,
                                                 legendMinMax[1]+minMaxExtension])
                                      .range([0,legendBarWidth]);
