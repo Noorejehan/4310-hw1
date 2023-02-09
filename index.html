@@ -194,13 +194,6 @@ chartArea.selectAll('rect.bar').data(top5)
              .attr("height", d => speciesScale(0) - speciesScale(d.totalSpecies))
              .attr("width", nameScale.bandwidth());                      
   
-// svg2.append("text")
-//             .attr("transform", "translate(0,0)")
-//             .text("Hello")
-//             .attr("x", -10)
-//             .attr("y", height2/2)
-//             // .attr("transform", "rotate(-90)")
-//             .style("font-size", 14);
 
 chartArea.append("text")
     .attr("class", "y label")
@@ -210,15 +203,7 @@ chartArea.append("text")
     .attr("x", -180)
     // .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("Tree Species");
-
-//  chartArea.append("text")
-//     .attr("transform", "translate(0,0)")
-//     .style("text-anchor", "end")
-//     .attr("x", 0)
-//     .attr("y", height2/2)
-//     .attr("transform", "rotate(-90)")
-//     .text('diversity');
+    .text("Number of Tree Species");
 
 
 };
